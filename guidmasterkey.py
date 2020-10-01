@@ -2,7 +2,7 @@
 
 ''' Get masterkey GUID from the all the files in %appdata%\Microsoft\Crypto\RSA\<SID>\ 
 (you have to pass that location as first argument), if you pass as second argument the
-masterkey location folder (%appdata%\Microsoft\Protect\<SID>\ it will check if the file exist '''
+masterkey location folder (%appdata%\Microsoft\Protect\<SID>\) it will check if the file exist '''
 
 
 import struct
