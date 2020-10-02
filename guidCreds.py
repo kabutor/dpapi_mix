@@ -1,5 +1,12 @@
 #!/usr/bin/python3
-
+'''
+Decrypt credentials stored in %appdata%/Microsoft/Credentials or %localappdata%/Microsoft/Credentials
+Need impacket dpapi.py in order to decrypt credentials.
+If you call the program with only the -c -or -f it will show the masterkey needed for that file(s), if
+you call it with the path to the masterkey location (%appdata%/Microsoft/Protect/<SID>/) and provide
+the password, the program will decrypt the credentials and will dump on the screen.
+SID is extracted from the path to the masterkey location, if not in the path you need to provide it as well.
+'''
 import struct
 import binascii
 import sys
