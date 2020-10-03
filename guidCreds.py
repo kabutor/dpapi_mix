@@ -6,6 +6,7 @@ If you call the program with only the -c -or -f it will show the masterkey neede
 you call it with the path to the masterkey location (%appdata%/Microsoft/Protect/<SID>/) and provide
 the password, the program will decrypt the credentials and will dump on the screen.
 SID is extracted from the path to the masterkey location, if not in the path you need to provide it as well.
+If user has no password, you can use the --nopass switch
 '''
 import struct
 import binascii
