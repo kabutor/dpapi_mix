@@ -22,7 +22,8 @@ parser.add_argument("--file", "-f", help="set Credentials file")
 parser.add_argument("--masterkey", "-m", help="set masterkey directory file")
 parser.add_argument("--sid", "-s", help="set SID(optional)")
 parser.add_argument("--password", "-p", help="user password")
-
+parser.add_argument("--nopass","-n",dest="nopass",action='store_true',help="no password")
+parser.set_defaults(nopass=False)
 args = parser.parse_args()
 
 file_list=[]
@@ -69,7 +70,9 @@ for fichero in file_list:
         '''     
         print ()
         f.close()
-        if ( (sid) and (args.masterkey) and (args.password) ):
+        if ( (sid) and (args.masterkey) and (args.nopass or args.password) ):
+            if (args.nopass == True):
+                args.password= "\'\'"
             sal=subprocess.check_output("dpapi.py masterkey -file " + os.path.join(args.masterkey,master_file_name) + " -sid " + sid + " -password " + args.password, shell=True)
             key = (re.search('(0x.*).?', sal.decode('utf-8')))[1]
             print (key)
