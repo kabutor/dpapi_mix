@@ -205,7 +205,8 @@ class DPAPI_CAPI(Structure):
         cipher = ALGORITHMS_DATA[self['CryptAlgo']][1].new(derivedKey[:ALGORITHMS_DATA[self['CryptAlgo']][0]],
                                 mode=ALGORITHMS_DATA[self['CryptAlgo']][2], iv=b'\x00'*ALGORITHMS_DATA[self['CryptAlgo']][3])
         cleartext = unpad(cipher.decrypt(self['Data']), ALGORITHMS_DATA[self['CryptAlgo']][1].block_size)
-
+        return cleartext
+        '''
         # Now check the signature
 
         # ToDo Fix this, it's just ugly, more testing so we can remove one
@@ -236,6 +237,7 @@ class DPAPI_CAPI(Structure):
             return cleartext
         else:
             return None
+        '''
 
 _file = 'RSA/S-1-5-21-788893716-389553871-1612069284-1001/1bbe947cf904095bea539fab3a6a5326_b04d17e7-4026-436e-8280-19436d49f2b3'
 #_file = sys.argv[1]
@@ -251,9 +253,10 @@ blob = DPAPI_CAPI(data)
 key=unhexlify("1e4e9a92c72ef519ccc7b4848a2b5181033aa94f335497debfc74994c8f86cf6b15e29a77cabd9fce002a61bea3fbc7e7f23ca26b4ba29051ec29d2b0887811b")
 pvk = blob.decrypt(key)
 if (pvk):
-	fp= open("test.pvk","w+")
+	fp= open("test.pvk","wb"
 	fp.write(pvk)
 	fp.close()
 	print("ok")
 else:
-	blob.dump()
+	#blob.dump()
+        print("not")
