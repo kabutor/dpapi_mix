@@ -253,7 +253,7 @@ blob = DPAPI_CAPI(data)
 key=unhexlify("1e4e9a92c72ef519ccc7b4848a2b5181033aa94f335497debfc74994c8f86cf6b15e29a77cabd9fce002a61bea3fbc7e7f23ca26b4ba29051ec29d2b0887811b")
 pvk = blob.decrypt(key)
 if (pvk):
-	fp= open("test.pvk","wb"
+	fp= open("test.pvk","wb")
 	fp.write(pvk)
 	fp.close()
 	print("ok")
