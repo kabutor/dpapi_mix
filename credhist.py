@@ -12,6 +12,11 @@ from impacket.structure import Structure, hexdump
 from impacket.uuid import bin_to_string
 from binascii import unhexlify, hexlify
 
+#Bit of hacking at uuid1 :P
+def bin_to_sid(uuid):
+    uuid1, uuid2 = struct.unpack('>LL', uuid[:8])
+    uuid3, uuid4, uuid5, uuid6, uuid7 = struct.unpack('<LLLLL', uuid[8:])
+    return '%s-%s-%s-%s-%s-%s-%s)' % ("S-1", uuid2, uuid3, uuid4, uuid5, uuid6, uuid7)
 #144 bytes each
 class CRED_HIST(Structure):
 	structure = (
@@ -27,16 +32,6 @@ class CRED_HIST(Structure):
         ('ntHashLen','<L=0'),
 	('iv','16s=b'),
 	('SID','28s=b'),
-
-	#'SID' 			/ RPC_SIDAdapter(RPC_SID),
-	# 16 should not be hardcoded
-	#('_encrypted', '_-encrypted','self["shaHashLen"]')
-        #('encrypted',':'),
-
-        #+ 'self["algCrypt"]')
-            #+ ((self.["shaHashlen"] + self.["ntHashlen") %16)'),
-	#('revision2','<L=0'),
-	#('guid','<L=0'),
 	)
 	def dump(self):
                 print("[CRED]")
@@ -49,17 +44,10 @@ class CRED_HIST(Structure):
                 print("shaHashLen      : %8x (%d)" % (self['shaHashLen'], self['shaHashLen']))
                 print("ntHashLen       : %8x (%d)" % (self['ntHashLen'], self['ntHashLen']))
                 print("iv              : %s" % hexlify(self['iv']))
-
-                print("SID             : %s" % ((self['SID'])))
-
-
-
+                print("SID             : %s" % (bin_to_sid(self['SID'])))
                 print()
 
-
 	#'encrypted'		/ Bytes(this.shaHashLen + this.algCrypt + ((this.shaHashLen + this.algCrypt) % 16)), 
-	#'revision2'		/ Int32ul,
-	#'guid'			/ GuidAdapter(GUID),
 
 # 24 bytes size
 class CredHist(Structure):
@@ -83,8 +71,6 @@ parser.add_argument("--nopass","-n",dest="nopass",action='store_true',help="no p
 parser.set_defaults(nopass=False)
 args = parser.parse_args()
 
-file_list=[]
-sid = ''
 
 if args.file:
 	_file=(args.file)
