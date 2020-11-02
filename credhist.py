@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+#Requires Impacket installed
 
 import struct
 import binascii
