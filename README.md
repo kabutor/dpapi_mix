@@ -1,6 +1,6 @@
 # dpapi_mix
 
-Some things I'm doing using DPAPI/Mimikatz/IMPACKET not working most of this.
+Some things I'm doing using DPAPI/Mimikatz/IMPACKET not working some of these...
 
 
 # Scripts
@@ -19,7 +19,7 @@ with all the Credentials (usually Appdata\<Local/Roaming>\Microsoft\Credentials)
 Requisites: impacket (dpapi.py from the examples must be in the path)
 
 
-credhist.py - Dump the contents of the CREDHIST file, I like to know how to decrypt it, but I don't.
+credhist.py - Decrypt CREDHIST file, you have to pass a password, a sha1 key in order to decrypt any of the old user password hashes.
 
 
 dpapicapi.py - My attemp to port dpapi::capi from mimikatz to linux to dump encrypted PVK files on linux. Not working
