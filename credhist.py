@@ -14,6 +14,8 @@ from binascii import unhexlify, hexlify
 import hashlib
 from Cryptodome.Hash import HMAC, SHA512, SHA1
 import hmac
+import itertools, sys
+spinner = itertools.cycle(['-', '/', '|', '\\'])
 #derivekey used to decrypt - impacket
 def deriveKey( passphrase, salt, keylen, count, hashFunction):
         keyMaterial = b""
@@ -137,6 +139,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--file", "-f", help="set CREDHISTORY file")
 parser.add_argument("--password", "-p", help="user password")
 parser.add_argument("--key", "-k", help="sha1 key")
+parser.add_argument("--wordlist","-w",help="bruteforce wordlist")
 parser.add_argument("--nopass","-n",dest="nopass",action='store_true',help="no password")
 parser.set_defaults(nopass=False)
 args = parser.parse_args()
@@ -153,6 +156,8 @@ elif args.key:
     _hash = bytes.fromhex(args.key)
 elif args.nopass:
     _hash =  bytes.fromhex("da39a3ee5e6b4b0d3255bfef95601890afd80709")
+elif args.wordlist:
+    pass
 else:
     print("need to add password/key")
     sys.exit()
@@ -166,15 +171,34 @@ fp = open(_file, 'rb')
 
 for cred in range(number_of_creds):
     data = fp.read(144)
-
     blo = CRED_HIST(data)
     sid = bin_to_sid(blo['SID'])    
-    enckey = dec_with_hash(_hash, sid )
-    blo.decryptWithKey(enckey)
+
+    if(args.wordlist):
+        try:
+            with open(args.wordlist) as lines:
+                while True:
+                    current = next(lines)[:-1]
+                    _hash = pass_to_hash(current)
+                    enckey = dec_with_hash(_hash, sid )
+                    blo.decryptWithKey(enckey)
+                    #spinning cursor
+                    sys.stdout.write(next(spinner))  
+                    sys.stdout.flush()
+                    sys.stdout.write('\b')
+                    if (blo.ntlm != None):
+                        print("word-> %s" % current)
+                        print("sha1-> %s" % hexlify(blo.pwdhash))
+                        print("ntlm-> %s" % hexlify(blo.ntlm) )
+        except StopIteration:
+            print('EOF!')
+    else:
+        enckey = dec_with_hash(_hash, sid )
+        blo.decryptWithKey(enckey)
     
-    if (blo.ntlm != None):
-        print("sha1-> %s" % hexlify(blo.pwdhash))
-        print("ntlm-> %s" % hexlify(blo.ntlm) )
+        if (blo.ntlm != None):
+            print("sha1-> %s" % hexlify(blo.pwdhash))
+            print("ntlm-> %s" % hexlify(blo.ntlm) )
 
 data = fp.read(24)
 #CredHist Header
