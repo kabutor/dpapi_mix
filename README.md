@@ -5,7 +5,7 @@ Some things I'm doing using DPAPI/Mimikatz/IMPACKET not working some of these...
 
 # Scripts
 
-guidCreds.py - Bulk extract dpapi encrypted Credentials, you need to supply the user password 
+__guidCreds.py__ - Bulk extract dpapi encrypted Credentials, you need to supply the user password 
 and the masterfile location (%Appdata%\Microsoft\Protect usually). It will dump in 
 cleartext the credentials saved.
 
@@ -19,13 +19,13 @@ with all the Credentials (usually Appdata\<Local/Roaming>\Microsoft\Credentials)
 Requisites: impacket (dpapi.py from the examples must be in the path)
 
 
-credhist.py - Requires Impacket. Decrypt CREDHIST file, you have to specify thepassword user or the sha1 key in order to decrypt any of the old user password hashes. You can also use a wordlist to bruteforce it.
+__credhist.py__ - Requires Impacket. Decrypt CREDHIST file, you have to specify the user password or the sha1 key in order to decrypt any of the old user password hashes. You can also use a wordlist to bruteforce it.
 
 
-dpapicapi.py - My attemp to port dpapi::capi from mimikatz to linux to dump encrypted PVK files on linux. Not working
+__dpapicapi.py__ - My attemp to port dpapi::capi from mimikatz to linux to dump encrypted PVK files on linux. Not working
 
 
 
-guidmasterkey.py - Shows and check you have the masterkey needed to decrypt DPAPI PVK files. Not very useful, it was a precursor of guidCreds.py
+__guidmasterkey.py__ - Shows and check you have the masterkey needed to decrypt DPAPI PVK files. Not very useful, it was a precursor of guidCreds.py
 
 
