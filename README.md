@@ -19,7 +19,7 @@ with all the Credentials (usually Appdata\<Local/Roaming>\Microsoft\Credentials)
 Requisites: impacket (dpapi.py from the examples must be in the path)
 
 
-credhist.py - Requires Impacket. Decrypt CREDHIST file, you have to pass a password, a sha1 key in order to decrypt any of the old user password hashes.
+credhist.py - Requires Impacket. Decrypt CREDHIST file, you have to specify thepassword user or the sha1 key in order to decrypt any of the old user password hashes.
 
 
 dpapicapi.py - My attemp to port dpapi::capi from mimikatz to linux to dump encrypted PVK files on linux. Not working
