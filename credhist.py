@@ -157,7 +157,6 @@ else:
     print("need to add password/key")
     sys.exit()
 
-_sid='S-1-5-21-2331447286-1659246195-761725538-1001'
 
 #Get Size
 tam = (os.path.getsize(_file) / 144)
