@@ -29,3 +29,11 @@ __dpapicapi.py__ - My attemp to port dpapi::capi from mimikatz to linux to dump 
 __guidmasterkey.py__ - Shows and check you have the masterkey needed to decrypt DPAPI PVK files. Not very useful, it was a precursor of guidCreds.py
 
 
+# License
+
+A lot of code is just copy/paste from other projecst with different licenses so I'm afraid I can't put this code under any specific license, Impacket use some kind of Apache License, and Dpapick is under the GPLv3, wich are the main places I copied things from, I seriously advise against using this code on this legal state on any project. (sorry) 
+If you can remove all the impacket code from here, I say the rest, my code included, is under GPLv3.
+
+
+Impacket https://github.com/SecureAuthCorp/impacket/
+Dpapick mis-team https://github.com/mis-team/dpapick
