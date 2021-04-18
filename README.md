@@ -4,6 +4,11 @@ Some things I'm doing using DPAPI/Mimikatz/IMPACKET not working some of these...
 
 
 # Scripts
+__blob_dpapi.py__ - Extract data from an encrypted BLOB file, you have to use -f to set the file to decrypt, it will say the masterkey file needed.
+You have to pass then that masterkey file, the blob file, the sid and the password to decrypt the content.
+
+Requisites: impacket
+
 
 __guidCreds.py__ - Bulk extract dpapi encrypted Credentials, you need to supply the user password 
 and the masterfile location (%Appdata%\Microsoft\Protect usually). It will dump in 
