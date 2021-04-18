@@ -49,23 +49,6 @@ def master(master_key,sid,password):
         print('Decrypted key: 0x%s' % hexlify(decryptedKey).decode('latin-1'))
         return decryptedKey
 
-    decryptedKey = bkmk.decrypt(key3)
-    if decryptedKey:
-        print('Decrypted Backup key with User Key (MD4 protected)')
-        print('Decrypted key: 0x%s' % hexlify(decryptedKey).decode('latin-1'))
-        return decryptedKey
-
-    decryptedKey = bkmk.decrypt(key2)
-    if decryptedKey:
-        print('Decrypted Backup key with User Key (MD4)')
-        print('Decrypted key: 0x%s' % hexlify(decryptedKey).decode('latin-1'))
-        return decryptedKey
-
-    decryptedKey = bkmk.decrypt(key1)
-    if decryptedKey:
-        print('Decrypted Backup key with User Key (SHA1)')
-        print('Decrypted key: 0x%s' % hexlify(decryptedKey).decode('latin-1'))
-        return decryptedKey
 # arguments
 parser = argparse.ArgumentParser()
 parser.add_argument("--file","-f", help="blob file name")
