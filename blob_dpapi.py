@@ -79,8 +79,11 @@ if (os.path.isfile(args.file)):
     print(bcolors.OKGREEN +" * "+ bcolors.ENDC + "File: " + args.file )
 else:
     print(bcolors.FAIL +" X "+ bcolors.ENDC + "No File" )
-if (os.path.isfile(args.masterkey)):
-    print(bcolors.OKGREEN +" * "+ bcolors.ENDC + "Masterkey File: " + args.masterkey )
+if (args.masterkey):
+    if(os.path.isfile(args.masterkey)):
+        print(bcolors.OKGREEN +" * "+ bcolors.ENDC + "Masterkey File: " + args.masterkey )
+    else:
+        print(bcolors.FAIL +" X "+ bcolors.ENDC + "Masterkey is not a file " )
 else:
     print(bcolors.FAIL +" X "+ bcolors.ENDC + "No Masterkey file " )
 if (args.password):
