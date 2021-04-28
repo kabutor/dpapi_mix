@@ -1,3 +1,7 @@
+#!/usr/bin/python3
+# Extract Binary encrypted DPAPI blob data 
+# 20210429 - added nopass option / added colors to console output
+
 from binascii import unhexlify, hexlify
 from hashlib import pbkdf2_hmac
 
@@ -6,7 +10,18 @@ from Cryptodome.Hash import HMAC, SHA1, MD4
 
 from impacket.dpapi import *
 import argparse
-import sys
+import sys, os
+
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
 
 def master(master_key,sid,password):
 
@@ -60,10 +75,28 @@ parser.set_defaults(nopass=False)
 args = parser.parse_args()
 
 just_mk = False
-
-if args.file and not args.sid or not args.password or not args.masterkey:
+if (os.path.isfile(args.file)):
+    print(bcolors.OKGREEN +" * "+ bcolors.ENDC + "File: " + args.file )
+else:
+    print(bcolors.FAIL +" X "+ bcolors.ENDC + "No File" )
+if (os.path.isfile(args.masterkey)):
+    print(bcolors.OKGREEN +" * "+ bcolors.ENDC + "Masterkey File: " + args.masterkey )
+else:
+    print(bcolors.FAIL +" X "+ bcolors.ENDC + "No Masterkey file " )
+if (args.password):
+    print(bcolors.OKGREEN +" * "+ bcolors.ENDC + "Password in" )
+elif (args.nopass):
+    args.password= ''
+    print(bcolors.OKGREEN +" * "+ bcolors.ENDC + "Will try with no password" )
+else:
+    print(bcolors.FAIL +" X "+ bcolors.ENDC + "You need to supply password of use the --nopass " )
+if (args.sid):
+    print(bcolors.OKGREEN +" * "+ bcolors.ENDC + "User SID : " + args.sid )
+else:
+    print(bcolors.FAIL +" X "+ bcolors.ENDC + "Need user SID (S-1...) " )
+if args.file and not args.sid and not (args.password or args.nopass) and not args.masterkey:
     just_mk = True
-elif not args.file or not args.sid or not args.password or not args.masterkey:
+elif not args.file or not args.sid or not (args.password or args.nopass) or not args.masterkey:
     print("Need masterkey file name, SID and password")
     sys.exit(2)
 
@@ -88,9 +121,12 @@ if (key):
     decrypted = blob.decrypt(key)
     if decrypted is not None:
         print()
-        print("# # Blob Content: (saved to decrypted.bin) # #")
+        print(bcolors.OKGREEN +" * "+ bcolors.ENDC + "# # Blob Content: (saved to decrypted.bin) # #")
         print()
-        print(decrypted.decode('utf-16-le'))
+        try:
+            print(decrypted.decode('utf-16-le'))
+        except:
+            pass
         f = open('decrypted.bin','wb')
         f.write(decrypted)
         f.close()
