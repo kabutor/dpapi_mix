@@ -33,7 +33,7 @@ __dpapicapi.py__ - My attemp to port dpapi::capi from mimikatz to linux to dump 
 
 __guidmasterkey.py__ - Shows and check you have the masterkey needed to decrypt DPAPI PVK files. Not very useful, it was a precursor of guidCreds.py
 
-
+__tba_dpapi.py__ . Extract from the LSA Secrets the TBAL value, parse the user NTLM hash, and the DPAPI decryption key without user password. Test script versus the user dpapi masterkeys.
 # License
 
 A lot of code is just copy/paste from other projecst with different licenses so I'm afraid I can't put this code under any specific license, Impacket use some kind of Apache License, and Dpapick is under the GPLv3, wich are the main places I copied things from, I seriously advise against using this code on this legal state on any project. (sorry) 
