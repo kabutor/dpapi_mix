@@ -82,5 +82,14 @@ for mkl in list(mkp.keys.values()):
 '''
 key_p = binascii.unhexlify(tbal_data)
 vuelta = mkp.try_credential_hash(sid,key_p)
+for mkl in list(mkp.keys.values()):
+    for mk in mkl:
+        if mk.decrypted:
+            print("######################################################################")
+            print("MK GUID: %s" % mk.guid.decode())
+            print("SHA1 Decoded Key %s" % binascii.hexlify(mk.masterkey.key).decode())
+
+
 if (vuelta):
+    print("######################################################################")
     print("number of MasterKeys decrypted %i" % vuelta)
