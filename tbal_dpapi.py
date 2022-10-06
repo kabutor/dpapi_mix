@@ -36,6 +36,7 @@ if ((options.system == None) or (options.security == None)):
 # read LSA secrets, find TBAL key
 reg = registry.Regedit()
 secrets = reg.get_lsa_secrets(options.security, options.system)
+tbal_data = None
 for i in list(secrets.keys()):
     for k, v in list(secrets[i].items()):
         if k in ('CurrVal', 'OldVal'):
