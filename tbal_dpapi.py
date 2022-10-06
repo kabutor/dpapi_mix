@@ -66,8 +66,8 @@ if options.sid_value == None:
         if (d.is_dir() and (d.name[0:3] == 'S-1')):
             sid = str(d.name)
             print("Found SID : %s " % sid)
-        if sid == '':
-            sys.exit('No SID found')
+    if sid == '':
+        sys.exit('No SID found')
 else:
     sid = options.sid_value
 
