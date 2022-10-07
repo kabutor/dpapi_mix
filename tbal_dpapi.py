@@ -45,7 +45,7 @@ for i in list(secrets.keys()):
             if ("TBAL" in i):
                 ntlm = str(data)[32:64]
                 tbal_data = str(data)[96:136]
-                print ('NTLM: %s  DPAPI_key %s' % (ntlm, binascii.unhexlify(tbal_data)))
+                print ('NTLM: %s  DPAPI_key %s' % (ntlm, tbal_data))
                 try: print('User: %s' % binascii.unhexlify((data)[288:]).decode())
                 except:
                     pass
